@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Assistant CMS</title>
+  </head>
+  <body>
+    <h1 data-title>This is the title</h1>
+    <p data-text>This is the text</p>
+    <script async>
+      const url = 'ws://localhost:8081';
+      const connection = new WebSocket(url);
+      connection.onopen = () => {
+        console.log('WS Connection is open');
+      }
+      connection.onerror = error => {
+        console.log(`WS error`, error);
+      }
+      connection.onmessage = e => {
+        let data = JSON.parse(e.data);
+
+        document.querySelector('[data-title]').innerHTML = data.title;
+        document.querySelector('[data-text]').innerHTML = data.text;
+      }
+    </script>
+  </body>
+</html>

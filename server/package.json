@@ -1,0 +1,23 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "start": "npm install && node server",
+    "dev": "npm install && npm install -g nodemon && nodemon server"
+  },
+  "dependencies": {
+    "ws": "^5.1.1"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
