@@ -6,7 +6,7 @@ services:
         image: node:latest
         container_name: ${COMPOSE_PROJECT_NAME}-websocket-server
         volumes:
-            - ./server:/app
+            - .:/app
         working_dir: /app
         command: ["npm", "run", "dev"]
         ports:
@@ -18,10 +18,11 @@ services:
             - PORT=3001
 
     webserver:
-        image: nginx:latest
+        image: node:latest
         container_name: ${COMPOSE_PROJECT_NAME}-webserver
+        command: ["node", "client"]
         volumes:
-            - ./client:/usr/share/nginx/html
+            - .:/app
         working_dir: /app
         ports:
             - "${CLIENT_PORT}:80"
