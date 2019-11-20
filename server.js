@@ -1,24 +1,30 @@
 'use strict';
 
-const http = require('http');
-const fs = require('fs');
 const { Server } = require('ws');
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser')
+
+var app = express();
 
 // Create client
-const server = http.createServer((req, res) => {
-  fs.readFile('index.html', (err, data) => {
-    if (err) {
-      throw err;
-    }
+const PORT = process.env.PORT || 80;
+const INDEX = path.join(__dirname, 'index.html');
 
-    res.writeHead(200, {
-      "Content-Type": "text/html"
-    });
-    res.end(data);
+const updateContent = (req, res) => {
+  wss.clients.forEach((client) => {
+    client.send(JSON.stringify({
+      title: req.body.title,
+      text: req.body.text,
+    }));
   });
-});
+  res.send({});
+};
 
-server.listen(process.env.PORT || 80);
+const server = app.use(bodyParser.json())
+  .get('/', (req, res) => res.sendFile(INDEX))
+  .put('/content', updateContent)
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 // Create websocket server
 const wss = new Server({ server });
@@ -28,12 +34,3 @@ wss.on('connection', ws => {
     console.log(`Received message`, message);
   });
 });
-
-setInterval(() => {
-  wss.clients.forEach((client) => {
-    client.send(JSON.stringify({
-      title: `New title ${Math.random()}`,
-      text: new Date().toTimeString(),
-    }));
-  });
-}, 1000);
