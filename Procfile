@@ -1,2 +1,2 @@
-web: node client.js
+web: node server.js
 

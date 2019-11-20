@@ -9,7 +9,9 @@
     "dev": "npm install && npm install -g nodemon && nodemon server"
   },
   "dependencies": {
-    "ws": "^5.1.1"
+    "bufferutil": "^4.0.1",
+    "utf-8-validate": "^5.0.2",
+    "ws": "^5.2.2"
   },
   "engines": {
     "node": "10.x",

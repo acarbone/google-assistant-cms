@@ -7,8 +7,8 @@
     <h1 data-title>This is the title</h1>
     <p data-text>This is the text</p>
     <script async>
-      const url = 'ws://localhost:8081';
-      const connection = new WebSocket(url);
+      const HOST = location.origin.replace(/^http/, 'ws')
+      const connection = new WebSocket(HOST);
       connection.onopen = () => {
         console.log('WS Connection is open');
       }
