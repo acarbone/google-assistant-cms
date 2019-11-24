@@ -14,8 +14,8 @@ const INDEX = path.join(__dirname, 'index.html');
 const updateContent = (req, res) => {
   wss.clients.forEach((client) => {
     client.send(JSON.stringify({
-      title: req.body.title,
-      text: req.body.text,
+      title: req.body.queryResult.parameters.title,
+      text: req.body.queryResult.parameters.text,
     }));
   });
   res.send({});
@@ -23,7 +23,7 @@ const updateContent = (req, res) => {
 
 const server = app.use(bodyParser.json())
   .get('/', (req, res) => res.sendFile(INDEX))
-  .put('/content', updateContent)
+  .post('/content', updateContent)
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 // Create websocket server
