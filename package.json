@@ -6,12 +6,18 @@
   "private": true,
   "scripts": {
     "start": "npm install && node server",
-    "dev": "npm install && npm install -g nodemon && nodemon server"
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn ./src/server",
+    "prod": "tsc && node ./build/server.js"
   },
   "dependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.14",
     "body-parser": "^1.19.0",
     "bufferutil": "^4.0.1",
     "express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.2",
     "utf-8-validate": "^5.0.2",
     "ws": "^5.2.2"
   },
